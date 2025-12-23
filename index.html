@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lautan Mode - Toko Baju Modern</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Lautan Mode.</div>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#shop">Produk</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#" onclick="logout()" style="color: #ef4444;">Logout</a></li> 
+        </ul>
+        <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Tampil Elegan dengan Warna Samudra</h1>
+            <p>Koleksi terbaik untuk gaya sehari-harimu.</p>
+            <a href="#shop" class="cta-button">Belanja Sekarang</a>
+        </div>
+    </header>
+
+    <section id="shop" class="container">
+        <h2>Koleksi Terbaru</h2>
+        
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Cari baju yang kamu inginkan...">
+        </div>
+
+        <div id="product-list" class="product-grid"></div>
+    </section>
+
+    <footer id="about">
+        <div class="footer-content">
+            <h3>Lautan Mode.</h3>
+            <p>Style masa kini dalam genggamanmu.</p>
+            
+            <div class="socials">
+                <a href="https://instagram.com/username_toko" target="_blank" class="social-link instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                
+                <a href="https://wa.me/6281234567890" target="_blank" class="social-link whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Lautan Mode - Projek UAS Sistem Informasi</p>
+        </div>
+    </footer>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Keranjang Belanja</h2>
+            
+            <div id="cart-items">
+                <p>Keranjang kosong.</p>
+            </div>
+
+            <div class="cart-summary">
+                
+                <div class="coupon-area">
+                    <input type="text" id="coupon-input" placeholder="Punya kode promo?" class="input-checkout">
+                    <button onclick="applyCoupon()" class="coupon-btn">Pakai</button>
+                </div>
+                <p id="coupon-msg" style="font-size: 0.8rem; margin-bottom: 10px;"></p>
+
+                <div class="price-details">
+                    <p>Subtotal: <span id="cart-subtotal">Rp 0</span></p>
+                    <p style="color: var(--accent);">Diskon: <span id="cart-discount">- Rp 0</span></p>
+                    <h3>Total Bayar: <span id="cart-total-price">Rp 0</span></h3>
+                </div>
+                
+                <hr style="border-color: #334155; margin: 15px 0;">
+
+                <input type="text" id="customer-name" placeholder="Nama Lengkap Penerima" class="input-checkout">
+                
+                <select id="payment-method" class="input-checkout">
+                    <option value="">-- Pilih Metode Pembayaran --</option>
+                    <option value="Transfer BCA">Transfer BCA</option>
+                    <option value="Transfer BRI">Transfer BRI</option>
+                    <option value="Transfer Mandiri">Transfer Mandiri</option>
+                    <option value="DANA">DANA</option>
+                    <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+                </select>
+
+                <textarea id="customer-address" placeholder="Alamat Lengkap Pengiriman" class="input-checkout"></textarea>
+                
+                <button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+    <div id="product-detail-modal" class="modal">
+        <div class="modal-content detail-content">
+            <span class="close-detail-btn">&times;</span>
+            
+            <div class="detail-layout">
+                <div class="detail-image">
+                    <img id="detail-img" src="" alt="Detail Produk">
+                </div>
+                
+                <div class="detail-info">
+                    <h2 id="detail-name">Nama Produk</h2>
+                    <p id="detail-desc" class="desc-text">Deskripsi produk akan muncul di sini.</p>
+                    <p id="detail-price" class="price-tag">Rp 0</p>
+                    <p id="detail-stock" class="stock-tag">Stok: 0</p>
+                    
+                    <div class="detail-actions">
+                        <button id="btn-buy-modal" class="cta-button" style="width: 100%;">+ Masukkan Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="promo-modal" class="modal promo-overlay">
+        <div class="modal-content promo-content">
+            <span class="close-promo-btn">&times;</span>
+            <div class="promo-body">
+                <h1>🎉 SELAMAT DATANG! 🎉</h1>
+                <h2 class="discount-text">DISKON 90%</h2>
+                <p>Khusus untuk pelanggan baru hari ini. Jangan lewatkan kesempatan emas ini!</p>
+                <div class="coupon-box">
+                    Kode Kupon: <b>UAS_A_PLUS</b>
+                </div>
+                <button class="cta-button" onclick="copyCoupon()">AMBIL DISKON SEKARANG</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
